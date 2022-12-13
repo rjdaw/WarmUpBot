@@ -1,4 +1,5 @@
 ﻿using Discord.Commands;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace WarmUpBot.Modules
             Random random = new Random();
 
             List<string> questions = new List<string>();
+            List<string> characters= new List<string>();
+
             questions.Add("Quelle est une chose que nous devrions tous avoir?");
             questions.Add("Que diriez-vous avec dernier soupir?");
             questions.Add("Quel est le meilleur repas que vous ayez mangé?");
@@ -146,7 +149,18 @@ namespace WarmUpBot.Modules
             questions.Add("La dernière fois que vous avez pleuré?");
             questions.Add("Comment préférez-vous résoudre les conflits?");
 
+            characters.Add("Régis");
+            characters.Add("Ruben");
+            characters.Add("Michaël");
+            characters.Add("Ben");
+
+            Random rand = new Random();
+            var shuffled = characters.OrderBy(_ => rand.Next()).ToList();
+
+            Console.WriteLine(String.Join(", ", shuffled));
+
             await ReplyAsync(questions[random.Next(questions.Count)]);
+            await ReplyAsync($"{shuffled[0]}, tu commences, puis {shuffled[1]}, ensuite {shuffled[2]}, et enfin {shuffled[3]}.");
         }
     }
 }
