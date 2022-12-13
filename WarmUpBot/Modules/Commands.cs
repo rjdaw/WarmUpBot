@@ -60,7 +60,6 @@ namespace WarmUpBot.Modules
             questions.Add("If you were a drink, what would you be?");
             questions.Add("If you were to paint something, what would it be?");
             questions.Add("If you could be anywhere right now, where would you be?");
-            questions.Add("");
 
             await ReplyAsync(questions[random.Next(questions.Count)]);
         }
