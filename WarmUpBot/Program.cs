@@ -24,7 +24,7 @@ namespace WarmUpBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string token = "OT";
+            string token = "";
 
             _client.Log += _client_Log;
 

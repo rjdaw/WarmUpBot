@@ -341,5 +341,136 @@ namespace WarmUpBot.Modules
 
             await ReplyAsync(response.ToString());
         }
+
+        [Command("quote")]
+        public async Task GetQuoteAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("https://api.quotable.io/random");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var quote = JObject.Parse(responseBody);
+                    string content = quote["content"].ToString();
+                    string author = quote["author"].ToString();
+                    await ReplyAsync($"\"{content}\" — {author}");
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch a quote at the moment.");
+                }
+            }
+        }
+
+        [Command("riddle")]
+        public async Task GetPuzzleAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", "k2nm3pXSqbdio12gldZ2bw==4I4tHLoCaOZXZ2QR"); // Replace with your actual API key
+                HttpResponseMessage response = await client.GetAsync("https://api.api-ninjas.com/v1/riddles");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var puzzle = JArray.Parse(responseBody)[0];
+                    string question = puzzle["question"].ToString();
+                    string answer = puzzle["answer"].ToString();
+
+                    await ReplyAsync($"Ridle: {question}");
+                    await Task.Delay(30000); // Delay for 30 seconds
+                    await ReplyAsync($"Answer: {answer}");
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch a puzzle at the moment.");
+                }
+            }
+        }
+
+        [Command("joke")]
+        public async Task GetJokeAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", "k2nm3pXSqbdio12gldZ2bw==4I4tHLoCaOZXZ2QR"); // Replace with your actual API key
+                HttpResponseMessage response = await client.GetAsync("https://api.api-ninjas.com/v1/jokes");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var joke = JArray.Parse(responseBody)[0]["joke"].ToString();
+                    await ReplyAsync(joke);
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch a joke at the moment.");
+                }
+            }
+        }
+
+        [Command("fact")]
+        public async Task GetFactAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", "k2nm3pXSqbdio12gldZ2bw==4I4tHLoCaOZXZ2QR"); // Replace with your actual API key
+                HttpResponseMessage response = await client.GetAsync("https://api.api-ninjas.com/v1/facts");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var fact = JArray.Parse(responseBody)[0]["fact"].ToString();
+                    await ReplyAsync(fact);
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch a fact at the moment.");
+                }
+            }
+        }
+
+        [Command("dadjoke")]
+        public async Task GetDadJokeAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", "k2nm3pXSqbdio12gldZ2bw==4I4tHLoCaOZXZ2QR"); // Replace with your actual API key
+                HttpResponseMessage response = await client.GetAsync("https://api.api-ninjas.com/v1/dadjokes");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var joke = JArray.Parse(responseBody)[0]["joke"].ToString();
+                    await ReplyAsync(joke);
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch a dad joke at the moment.");
+                }
+            }
+        }
+
+        [Command("trivia")]
+        public async Task GetTriviaAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Api-Key", "k2nm3pXSqbdio12gldZ2bw==4I4tHLoCaOZXZ2QR"); // Replace with your actual API key
+                HttpResponseMessage response = await client.GetAsync("https://api.api-ninjas.com/v1/trivia");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var trivia = JArray.Parse(responseBody)[0];
+                    string question = trivia["question"].ToString();
+                    string answer = trivia["answer"].ToString();
+
+                    await ReplyAsync($"Question: {question}");
+                    await Task.Delay(10000); // Delay for 10 seconds
+                    await ReplyAsync($"Answer: {answer}");
+                }
+                else
+                {
+                    await ReplyAsync("Sorry, I couldn't fetch trivia at the moment.");
+                }
+            }
+        }
     }
 }
