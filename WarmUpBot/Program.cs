@@ -24,12 +24,12 @@ namespace WarmUpBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string token = "OTk2MDk3Nzc2NDEwNzAxODQ0.GjXbu2.i9emLGYjm-YnCz7dawBxFFxOD4bYmQ0_3KYX";
+            
 
             _client.Log += _client_Log;
 
             await RegisterCommandsAsync();
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, "token");
             await _client.StartAsync();
 
             await Task.Delay(-1);
